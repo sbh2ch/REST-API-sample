@@ -98,6 +98,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../test/src/main/java/com/son/account/AccountService.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../test/src/test/java/com/son/account/AccountControllerTest.java">
           <value>
             <set />

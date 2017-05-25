@@ -29,7 +29,6 @@ public class AccountController {
     @RequestMapping(value = "/accounts", method = RequestMethod.POST)
     public ResponseEntity createAccount(@RequestBody @Valid AccountDto.Create create, BindingResult result) {
         if (result.hasErrors()) {
-            //TODO 에러 처리
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
@@ -84,6 +83,6 @@ public class AccountController {
 
     @ExceptionHandler(UserDuplicatedException.class)
     public ResponseEntity handleUserDuplicatedException(UserDuplicatedException e) {
-        return new ResponseEntity<>(new ErrorResponse("duplicated.username.exception", "유저이름중복"), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResponse("duplicated.username.exception", "[" + e.getUsername() + "] 유저이름중복"), HttpStatus.BAD_REQUEST);
     }
 }

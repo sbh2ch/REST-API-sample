@@ -7,15 +7,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -27,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
+@Rollback
 public class AccountControllerTest {
     @Autowired
     private WebApplicationContext wac;
@@ -35,7 +34,6 @@ public class AccountControllerTest {
     private ObjectMapper objectMapper;
 
     private MockMvc mockMvc;
-    private String newName = new SimpleDateFormat("MMddmmss").format(new Date());
 
     @Before
     public void setUp() {
@@ -45,7 +43,7 @@ public class AccountControllerTest {
     @Test
     public void createAccount() throws Exception {
         AccountDto.Create createAccount = new AccountDto.Create();
-        createAccount.setUsername(newName);
+        createAccount.setUsername("forTest");
         createAccount.setPassword("12334");
 
         ResultActions result = mockMvc.perform(post("/accounts").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(createAccount)));
@@ -68,8 +66,9 @@ public class AccountControllerTest {
     @Test
     public void createAccount_Duplicated() throws Exception {
         AccountDto.Create duplicatedAccount = new AccountDto.Create();
-        duplicatedAccount.setUsername(newName);
+        duplicatedAccount.setUsername("forTest");
         duplicatedAccount.setPassword("12345");
+        mockMvc.perform(post("/accounts").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(duplicatedAccount)));
 
         ResultActions result = mockMvc.perform(post("/accounts").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(duplicatedAccount)));
         result.andDo(print());
@@ -94,7 +93,7 @@ public class AccountControllerTest {
     @Test
     public void updateAccount() throws Exception {
         AccountDto.Update updateAccount = new AccountDto.Update();
-        updateAccount.setUsername(newName + "update");
+        updateAccount.setUsername("updateTesting");
         updateAccount.setPassword("updateTest");
 
         ResultActions result = mockMvc.perform(put("/accounts/22").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(updateAccount)));
@@ -104,7 +103,7 @@ public class AccountControllerTest {
 
     @Test
     public void deleteAccount() throws Exception {
-        ResultActions result = mockMvc.perform(delete("/accounts/21"));
+        ResultActions result = mockMvc.perform(delete("/accounts/22"));
 
         result.andDo(print());
         result.andExpect(status().isNoContent());
