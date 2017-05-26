@@ -73,6 +73,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/main/java/kr/goci/kosc/common/ExceptionHnadlers.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/main/resources/application.properties">
           <value>
             <set />
@@ -84,6 +89,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/test/java/kr/goci/kosc/account/AccountTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/test/resources/application.properties">
           <value>
             <set />
           </value>
@@ -103,12 +113,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../test/src/main/java/com/son/commons/ErrorResponse.java">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../test/src/test/java/com/son/account/AccountControllerTest.java">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../test/src/test/java/com/son/account/AccountTest.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../test/src/test/resources/application.properties">
           <value>
             <set />
           </value>

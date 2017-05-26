@@ -1,4 +1,4 @@
-package kr.goci.kosc.account;
+package kr.goci.kosc.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

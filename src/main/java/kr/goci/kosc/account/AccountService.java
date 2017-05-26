@@ -1,5 +1,6 @@
 package kr.goci.kosc.account;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.Date;
  */
 @Service
 @Transactional
+@Slf4j
 public class AccountService {
     @Autowired
     private AccountRepository repository;
@@ -24,9 +26,11 @@ public class AccountService {
         Account account = modelMapper.map(dto, Account.class);
         String username = dto.getUsername();
 
-        if(repository.findByUsername(username) != null)
+        if (repository.findByUsername(username) != null) {
+            log.error("user duplicated exception occured --->> {}", username);
             throw new UserDuplicatedException(username);
-
+        }
+        //TODO password encryption
         Date now = new Date();
         account.setJoined(now);
         account.setUpdated(now);

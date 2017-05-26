@@ -7,12 +7,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
 @WebAppConfiguration
-@Rollback
+@Transactional
 public class AccountControllerTest {
     @Autowired
     private WebApplicationContext wac;
@@ -43,7 +43,7 @@ public class AccountControllerTest {
     @Test
     public void createAccount() throws Exception {
         AccountDto.Create createAccount = new AccountDto.Create();
-        createAccount.setUsername("forTest");
+        createAccount.setUsername("createAccountTest2");
         createAccount.setPassword("12334");
 
         ResultActions result = mockMvc.perform(post("/accounts").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(createAccount)));
@@ -68,24 +68,22 @@ public class AccountControllerTest {
         AccountDto.Create duplicatedAccount = new AccountDto.Create();
         duplicatedAccount.setUsername("forTest");
         duplicatedAccount.setPassword("12345");
-        mockMvc.perform(post("/accounts").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(duplicatedAccount)));
 
         ResultActions result = mockMvc.perform(post("/accounts").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(duplicatedAccount)));
         result.andDo(print());
         result.andExpect(status().isBadRequest());
-//        result.andExpect(jsonPath("$.errorCode", is("duplicated.username.exception")));
     }
 
     @Test
     public void selectAccount() throws Exception {
-        ResultActions result = mockMvc.perform(get("/accounts/22"));
+        ResultActions result = mockMvc.perform(get("/accounts/3"));
         result.andDo(print());
         result.andExpect(status().isOk());
     }
 
     @Test
     public void selectAccount_BadRequest() throws Exception {
-        ResultActions result = mockMvc.perform(get("/accounts/-3"));
+        ResultActions result = mockMvc.perform(get("/accounts/1"));
         result.andDo(print());
         result.andExpect(status().is4xxClientError());
     }
@@ -96,14 +94,14 @@ public class AccountControllerTest {
         updateAccount.setUsername("updateTesting");
         updateAccount.setPassword("updateTest");
 
-        ResultActions result = mockMvc.perform(put("/accounts/22").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(updateAccount)));
+        ResultActions result = mockMvc.perform(put("/accounts/6").contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(updateAccount)));
         result.andDo(print());
         result.andExpect(status().isOk());
     }
 
     @Test
     public void deleteAccount() throws Exception {
-        ResultActions result = mockMvc.perform(delete("/accounts/22"));
+        ResultActions result = mockMvc.perform(delete("/accounts/6"));
 
         result.andDo(print());
         result.andExpect(status().isNoContent());

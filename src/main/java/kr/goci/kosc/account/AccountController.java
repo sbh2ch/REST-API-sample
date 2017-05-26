@@ -1,5 +1,6 @@
 package kr.goci.kosc.account;
 
+import kr.goci.kosc.common.ErrorResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
