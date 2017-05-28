@@ -53,4 +53,8 @@ public class AccountService {
 
         return repository.save(account);
     }
+
+    public AccountDto.Response testing(String username, String password) {
+        return modelMapper.map(repository.findByUsernameAndPassword(username, password), AccountDto.Response.class);
+    }
 }

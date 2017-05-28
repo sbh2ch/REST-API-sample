@@ -91,4 +91,8 @@ hs_err_pid*
 ## ignoring target file
 target/
 
+application.properties
+
 # End of https://www.gitignore.io/api/java,java-web,intellij
+logs/
+src/test/resources/
