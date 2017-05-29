@@ -208,6 +208,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../todolist-master/fe/js/app.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../todolist-master/server/pom.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../todolist-master/server/src/main/java/kr/or/connect/todo/TodoApplication.java">
+          <value>
+            <set />
+          </value>
+        </entry>
       </map>
     </option>
   </component>
